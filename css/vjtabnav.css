@@ -1,0 +1,20 @@
+.main-header .nav-addtabs{ float: left; z-index: 98;height: 100%; border: none}
+.nav-addtabs > li .close-tab {
+    font-size: 10px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -20px;
+    z-index: 100;
+    cursor: pointer;
+    color: #eee;
+    display: none;}
+.nav-addtabs > li > a i{ margin-right: 3px;}
+.nav-addtabs .dropdown-menu li{ position: relative}
+.nav-tabs>li>a{ height: 50px; line-height: 50px; padding: 0px 15px;}
+.nav-tabs>li>a:hover,.nav-tabs>li.active>a,.nav-tabs>li.active>a:hover{ border: 1px solid transparent}
+
+.nav-addtabs > li:hover .close-tab{ display: block}
+.nav-addtabs > li:hover .dropdown-menu .close-tab{display:none}
+.nav-addtabs > li:hover .dropdown-menu li:hover .close-tab{display:block; margin-top: -10px;}
+.sidebar-menu .active>.treeview-menu,.sidebar-menu .menu-open>.treeview-menu{display: block}

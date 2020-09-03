@@ -1,0 +1,705 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>index_AllHtmlFile</title>
+    <link href="index_AllHtmlFile/layout-default.css" rel="stylesheet" type="text/css"/>
+    <link href="index_AllHtmlFile/tlayout.css" rel="stylesheet" type="text/css"/>
+    <link href="index_AllHtmlFile/treeview.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="index_AllHtmlFile/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="index_AllHtmlFile/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="index_AllHtmlFile/jquery.layout.js"></script>
+    <script type="text/javascript" src="index_AllHtmlFile/jtree.js"></script>
+    <script type="text/javascript">
+        var page = new rTree("page");
+        
+        var handleFullScreen = function () {
+            //设置全屏
+            var de = document.documentElement;
+            $('.layeropt').removeClass('closelayer');
+            $('.layeropt').addClass('openlayer');
+            $('.layeropt').html('恢复视图');
+            jContainer1_obj.hide('north');
+            $('.toptool').addClass('floattop');
+            $('.statusbox h3').show();
+            page.setting.leftshow = true;
+            if (de.requestFullscreen) {
+                de.requestFullscreen();
+            } else if (de.mozRequestFullScreen) {
+                de.mozRequestFullScreen();
+            } else if (de.webkitRequestFullScreen) {
+                de.webkitRequestFullScreen();
+            } else if (de.msRequestFullscreen) {
+                de.msRequestFullscreen();
+            }
+            else {
+                //alert("当前浏览器不支持全屏！建议使用");
+            }
+        };
+        var exitFullscreen = function () {
+            //退出全屏
+            $('.layeropt').addClass('closelayer');
+            $('.layeropt').removeClass('openlayer');
+            $('.layeropt').html('展开主区域');
+            jContainer1_obj.show('north');
+            $('.toptool').removeClass('floattop');
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }
+
+        var createselectbgop = function (domquery, domdatalist) {
+            var createhtml = '';
+            for (var i = 0; i < domdatalist.length; i++) {
+                createhtml = createhtml + ' <option value="' + domdatalist[i].value + '">' + domdatalist[i].name + '</option>';
+            }
+            $(domquery).html(createhtml);
+        }
+
+        var includeinarry = function (soucelist, objstr) {
+            var resoult = -1;
+            for (var i = 0; i < soucelist.length; i++) {
+                if (soucelist[i].value == objstr) {
+                    resoult = i
+                }
+            }
+            return resoult;
+        }
+
+        var selectbglist = [
+            {"name":"充满","value":"all"},
+		{"name":"iPad|768*1024","value":"768,1024"},
+		{"name":"Tablet|800*1280","value":"800,1280"},
+		{"name":"GalaxyS5|360*640","value":"360,640"},
+		{"name":"Nexus5X|412*732","value":"412,732"},
+		{"name":"荣耀8|472*835","value":"472,835"},
+		{"name":"小米5|428*760","value":"428,760"},
+		{"name":"iPhone4|320*480","value":"320,480"},
+		{"name":"iPhone5|320*568","value":"320,568"},
+		{"name":"iPhone6|375*667","value":"375,667"},
+		{"name":"iPhone6Plus|414*736","value":"414,736"}
+        ];
+
+        var treenode = [
+            {"id":"9999999","pid":0,"value":"默认（项目信息）","src1":"","src2":"","url":"vjpage_home.html","target":"_blank","isClose":true,"previewmode":{"name":"PC","settingwh":"1024,768","showtype":0}},
+			{"id":"2","pid":0,"value":"index","src1":"index_AllHtmlFile/JTree_folderclose.gif","src2":"index_AllHtmlFile/JTree_imgfolder.gif","url":"page2.html","target":"_blank","isClose":true,"previewmode":{"name":"PC","settingwh":"all","showtype":0}}
+        ];
+        page.setIconR(16, 16);
+        page.setdiv_h(0);
+        page.haveCheck = false;
+        page.setNodedbc(true);
+        page.setNodehref(true);
+        page.setLazy(false);
+        page.canAlterbg(true);
+        page.load(treenode);
+        page.setting = {showtype: 0};//默认竖屏
+        page.setting.leftshow = true;//默认显示左侧
+        page.setTarget('mainframe');
+        page.zsTarget = 'zhushiframe';
+        $(document).ready(function () {
+            createselectbgop('#selectbg', selectbglist);
+            page.callback = function (id) {
+                if ($('.statusbox .previewstatus.act').hasClass('auto')) {
+                    var settingwh = treenode[id].previewmode.settingwh;
+                    if (includeinarry(selectbglist, settingwh) < 0) {
+                        settingwh = 'all';
+                    }
+                    $('#selectbg').val(settingwh);
+                    $('#selectbg').trigger('change');
+                    if (settingwh != 'all') {
+                        setdirection(treenode[id].previewmode.showtype);
+                    }
+                }
+            }
+            jContainer1_obj = $('#indexmain_container').layout({
+                onresize: function () {
+                },
+                center__paneSelector: '.index_jContainer1_center'
+                , west__paneSelector: '.index_jContainer1_west'
+                , west__size: 300
+                , west__spacing_open: 0
+                , north__paneSelector: '.index_jContainer1_north'
+                , north__size: 40
+                , north__spacing_open: 0,
+                maskIframesOnResize: '#mainframe'
+            });
+            page.startTree("treemain");
+            jContainer1_obj.resizeAll();
+
+            var setscreen = function (type) {
+                switch (type) {
+                    case 0://PC页面充满框架
+                        $('.framebox').css('width', '100%');
+                        $('.framebox').css('height', '100%');
+                        $('.framebg').css('width', '100%');
+                        $('.framebg').css('height', '100%');
+                        break;
+                    case 1://移动页面设置背景
+                        var frameh = page.setting.frameh, framew = page.setting.framew;
+                        if (page.setting.showtype == 1) {
+                            //如果是横屏则切换宽高
+                            framew = page.setting.frameh;
+                            frameh = page.setting.framew;
+                        }
+                        if (frameh > framew) {
+                            $('.framebox').removeClass('phoneh');
+                        } else {
+                            $('.framebox').addClass('phoneh');
+                        }
+                        stylehtml = 'width:' + framew + 'px;height:' + frameh + 'px';
+                        $('.framebox').css('width', framew);
+                        $('.framebox').css('height', frameh);
+                        $('.framebox').addClass('phone');
+                        $('.statusbar img').css('width', framew);
+                        $('.statusbar img').css('margin-left', -1 * framew / 2);
+                        $('.statusbar img').css('margin-top', -1 * $('.statusbar img').height());
+                        //$('#mainframe').attr('scrolling','no');
+                        break;
+                }
+            }
+            setscreen(0);
+            var setdirection = function (showtype) {//设置背景方向（横竖）
+                if (showtype == 1) {
+                    page.setting.showtype = 1;
+                    $('.showtype').removeClass('valgin');
+                    $('.showtype').addClass('halgin');
+                } else {
+                    page.setting.showtype = 0;
+                    $('.showtype').removeClass('halgin');
+                    $('.showtype').addClass('valgin');
+                }
+                setscreen(1);
+            }
+            var initpage = function () {
+                $('.statusbox .status').click(function () {
+                    if ($(this).hasClass('act')) {
+                    } else {
+                        $('.statusbox .status').removeClass('act');
+                        $(this).addClass('act');
+                        if ($(this).hasClass('tarblank')) {
+                            page.setTarget('_blank');
+                        } else {
+                            page.setTarget('mainframe');
+                        }
+                        page.startTree("treemain");
+                    }
+                });
+                $('.statusbox .previewstatus').click(function () {
+                    if ($(this).hasClass('act')) {
+                    } else {
+                        $('.statusbox .previewstatus').removeClass('act');
+                        $(this).addClass('act');
+                        if ($(this).hasClass('auto')) {
+                            //page.setpreviewmode('auto');
+                        } else {
+                            //page.setpreviewmode('manual');
+                        }
+                        //page.startTree("treemain");
+                    }
+                });
+                $('#selectbg').change(function (e) {
+                    //console.log(e);
+                    var stylehtml;
+                    var changeval = $(this).val().split(',');
+                    if (changeval.length < 2) {
+                        $('.framebox').removeClass('phone');
+                        $('.framebox').removeClass('phoneh');
+                        $('#mainframe').attr('scrolling', 'auto');
+                        setscreen(0);
+                        $('.showtype').hide();
+                    } else {
+                        page.setting.framew = parseInt(changeval[0]);
+                        page.setting.frameh = parseInt(changeval[1]);
+                        setscreen(1);
+                        $('.showtype').show();
+                    }
+                });
+                $('.fullscreen').click(function () {
+                    if ($(this).hasClass('act')) {
+                        $(this).removeClass('act');
+                        $(this).html('&nbsp;');
+                        exitFullscreen();
+                    } else {
+                        $(this).addClass('act');
+                        $(this).html('&nbsp;');
+                        handleFullScreen();
+                    }
+                });
+                $('.showtype').click(function () {
+                    //横屏或竖屏
+                    if (page.setting.showtype == 1) {
+                        setdirection(0);
+                    } else {
+                        setdirection(1);
+                    }
+                });
+                $('.layeropt').click(function () {
+                    var temphtml;
+                    if ($(this).hasClass('closelayer')) {
+                        $(this).removeClass('closelayer');
+                        $(this).addClass('openlayer');
+                        $(this).html('恢复视图');
+                        jContainer1_obj.hide('west');
+                        jContainer1_obj.hide('north');
+                        $('.statusbox h3').hide();
+                        page.setting.leftshow = false;
+                        $('.toptool').addClass('floattop');
+                    } else {
+                        $(this).removeClass('openlayer');
+                        $(this).addClass('closelayer');
+                        $(this).html('展开主区域');
+                        jContainer1_obj.open('west');
+                        jContainer1_obj.open('north');
+                        $('.statusbox h3').show();
+                        page.setting.leftshow = true;
+                        $('.toptool').removeClass('floattop');
+                    }
+                });
+                $('.leftpower').click(function () {
+                    if (page.setting.leftshow) {
+                        jContainer1_obj.hide('west');
+                        $('.statusbox h3').hide();
+                        page.setting.leftshow = false;
+                    } else {
+                        jContainer1_obj.open('west');
+                        $('.statusbox h3').show();
+                        page.setting.leftshow = true;
+                    }
+                });
+                $('.treeZhushi').click(function () {
+                    $('.maskbox').addClass('showmask');
+                });
+                $('.closemask').click(function () {
+                    $('.maskbox').removeClass('showmask');
+                });
+            }
+            initpage();
+            $('.vjinfo_power').click(function(){
+                //var tha = $(window.frames["mainframe"].document).find("body").html();
+                if(typeof(page.cururl)!='undefined'){
+                    var urlarr=page.cururl.split("?");
+                    var url='';
+                    if($.isArray(urlarr)){
+                        url=urlarr[0];
+                    }else{url=urlarr};
+                    if($(this).hasClass('act')){
+                        //已经激活，点击为取消激活，所以去掉参数
+                        url=url+'?vjinfo=off';
+                        page.vjinfoshow=false;
+                        $(this).removeClass('act');
+                    }else{
+                        //加上参数
+                        url=url+'?vjinfo=on';
+                        page.vjinfoshow=true;
+                        $(this).addClass('act');
+                    }
+                    $("#mainframe").attr('src',url);
+                }
+            });
+            
+        });
+    </script>
+    <style>
+        body, html {
+            height: 100%
+        }
+
+        .container {
+            width: 100%;
+            height: 100%
+        }
+
+        body, html {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .indexmain_container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .toolbox {
+            float: right;
+            margin-right: 10px;
+            width: auto;
+            height: 40px;
+            position: relative;
+            padding-left: 70px;
+        }
+
+        .statusbox {
+            height: 40px;
+            padding: 0px;
+            font-size: 14px;
+        }
+
+        .index_jContainer1_west {
+            background-color: #666;
+        }
+
+        .ui-layout-pane a {
+            color: #f0f9ff
+        }
+
+        .ui-layout-pane a:hover {
+            color: #fff
+        }
+
+        .ui-layout-pane {
+            border-color: #666
+        }
+
+        .layeropt, .fullscreen, .selectbg, .status, .showtype, .previewstatus {
+            display: inline-block;
+        }
+
+        .statusbox h3 {
+            display: inline-block;
+            margin: 0px;
+            width: 300px;
+            text-align: center;
+            background-color: #333;
+            line-height: 40px;
+            margin-right: 10px;
+        }
+
+        .layeropt, .selectbg {
+            line-height: 40px;
+            font-size: 14px;
+        }
+
+        .layeropt {
+            background-color: #0ad;
+            line-height: 20px;
+            cursor: pointer;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .layeropt:hover {
+            background-color: #0CF;
+        }
+
+        .fullscreen, .showtype {
+            position: absolute;
+        }
+
+        .statusbox label {
+            margin-right: 20px;
+            margin-left: 40px;
+            line-height: 40px;
+        }
+
+        .status, .previewstatus {
+            padding: 5px 10px;
+            background-color: #68a;
+            padding-right: 20px;
+            cursor: pointer;
+            color: #333
+        }
+
+        .status.act, .previewstatus.act {
+            background-color: #19c;
+            cursor: auto;
+            position: relative;
+            color: #fff;
+            font-weight: bold
+        }
+
+        .status.act:after, .previewstatus.act:after {
+            content: '√';
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+            position: absolute;
+            right: 5px;
+            color: #fff;
+        }
+
+        .toptool {
+            position: absolute;
+            width: 100%;
+            z-index: 999;
+            overflow: hidden;
+            background-color: #1d242f;
+            color: #f0f9ff;
+            height: 40px;
+        }
+
+        .floattop {
+            height: 8px;
+            background-color: rgba(0, 0, 0, .2);
+        }
+
+        .floattop .layeropt, .floattop .fullscreen, .floattop .selectbg, .floattop .status, .floattop label {
+            display: none
+        }
+
+        .floattop:hover .layeropt, .floattop:hover .fullscreen, .floattop:hover .selectbg, .floattop:hover .status, .floattop:hover label {
+            display: inline-block
+        }
+
+        .showtype {
+            background: url(index_AllHtmlFile/showtype.gif) no-repeat left;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            margin-top: 5px;
+            left: 0px;
+        }
+
+        .showtype.halgin {
+            background-position: -30px;
+        }
+
+        .fullscreen {
+            background: url(index_AllHtmlFile/fullscreen.gif) no-repeat left;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            margin-top: 5px;
+            left: 33px;
+        }
+
+        .fullscreen:hover {
+            background-image: url(index_AllHtmlFile/fullscreenhover.gif)
+        }
+
+        .fullscreen.act {
+            background-position: -30px;
+        }
+
+        .leftpower {
+            display: inline-block;
+            background: url(index_AllHtmlFile/leftpower.gif) no-repeat left;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            position: absolute;
+            margin-top: 5px;
+        }
+
+        .leftpower:hover {
+            background-position: -30px;
+        }
+
+        .floattop:hover {
+            height: 40px;
+            background-color: #000;
+            color: #fff
+        }
+
+        .framebg, .index_jContainer1_center {
+            background-color: #e0e0e0;
+        }
+
+        .showtype {
+            cursor: pointer
+        }
+
+        .framebg, .framebox {
+            margin: auto;
+        }
+
+        .showframe {
+            background-color: #fff;
+        }
+
+        /*手机背景*/
+        .phone {
+            margin: 0 auto;
+            position: relative;
+            background: #111;
+            border-radius: 55px;
+            /* box-shadow: 0px 0px 0px 2px #aaa; */
+            width: 320px;
+            height: 568px;
+            padding: 105px 25px;
+            -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+
+        .phone:before {
+            content: '';
+            width: 60px;
+            height: 10px;
+            border-radius: 10px;
+            position: absolute;
+            left: 50%;
+            margin-left: -30px;
+            background: #333;
+            top: 50px;
+        }
+
+        .phone:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            left: 50%;
+            margin-left: -30px;
+            bottom: 20px;
+            border-radius: 100%;
+            box-sizing: border-box;
+            border: 5px solid #333;
+        }
+
+        .statusbar {
+            display: none
+        }
+
+        .phone .statusbar {
+            display: block;
+            position: absolute;
+            left: 50%;
+            -webkit-background-size: 100% auto;
+            background-size: 100% auto;
+        }
+
+        /*横屏*/
+        .phoneh {
+            padding: 25px 105px;
+        }
+
+        .phoneh:before {
+            content: '';
+            width: 10px;
+            height: 60px;
+            border-radius: 10px;
+            position: absolute;
+            top: 50%;
+            margin-top: -30px;
+            background: #333;
+            left: 70px;
+        }
+
+        .phoneh:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            top: 50%;
+            margin-top: -30px;
+            right: 20px;
+            left: auto;
+            border-radius: 100%;
+            box-sizing: border-box;
+            border: 5px solid #333;
+        }
+
+        .phoneh .statusbar {
+            display: none
+        }
+
+        .framebg .framebox {
+             border: none;/**1px solid #A8CDD0**/
+        }
+
+        .maskbox {
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            background-color: rgba(0, 0, 0, .75);
+            display: none;
+            padding: 5% 10%;
+        }
+
+        .showmask {
+            display: block
+        }
+
+        .maskbox .zhushibox {
+            position: relative;
+            height: 100%;
+            margin: auto;
+            background-color: #eee;
+            background: rgba(255, 255, 255, .9);
+            border: 1px solid #fff;
+        }
+
+        .closemask {
+            width: 20px;
+            height: 20px;
+            border: solid 1px #930;
+            border-radius: 50%;
+            color: #F30;
+            background-color: #fff;
+            font-size: 20px;
+            position: absolute;
+            text-align: center;
+            cursor: pointer;
+            z-index: 9;
+            margin-top: 5px;
+            right: 5px;
+        }
+        .statusbox h3{ position: relative}
+			  .vjinfo_power{position: absolute; right: 5px;top:5px;
+            width: 25px;
+            height: 25px;
+            border: solid 2px #9c6666;
+            text-align: center;
+            border-radius: 12px;
+            line-height: 25px;
+            font-size: 16px;
+            color: #ec8383;
+            z-index: 1090;
+            cursor: pointer;}
+        .vjinfo_power.act {
+            border-color: #c00;
+            color: #c00;
+            background-color: #fff;
+        }                
+         
+    </style>
+</head>
+<body>
+<div class="toptool ">
+    <div class="toolbox">
+        <div class="showtype valgin" style="display:none">&nbsp;</div>
+        <div class="fullscreen">&nbsp;</div>
+        <div class="selectbg">
+            <select name="selectbg" id="selectbg"> </select></div>
+        <div class="closelayer layeropt">展开主区域</div>
+    </div>
+    <div class="statusbox"><h3><div class="vjinfo_power ">注</div>pinggo内网资产发现系统</h3>
+        <div class="leftpower">&nbsp;</div>
+        <label>新页签打开:</label>
+        <div class="status tarblank">是</div>
+        <div class="status tarright act">否</div>
+        <label>切换终端设备:</label>
+        <div class="previewstatus auto act">自动</div>
+        <div class="previewstatus manual ">手动</div>
+        <label>缩放：Ctrl+/-</label>
+    </div>
+</div>
+<div id="indexmain_container" class="container indexmain_container">
+    <div id="index_north" class="index_jContainer1_north tlayout_noborder">
+    </div>
+    <div id="index_main" class="index_jContainer1_center ">
+        <div class="framebg">
+            <div class="framebox">
+                <div class="statusbar"><img src="index_AllHtmlFile/framemobilebar.gif" width="100%"></div>
+                <iframe class="showframe" id="mainframe" name="mainframe" src="vjpage_home.html" frameborder="0" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+        <div class="maskbox">
+            <div class="zhushibox">
+                <div class="closemask">×</div>
+                <iframe class="zhushiframe" id="zhushiframe" name="zhushiframe" src="vjpage_home.html" frameborder="0" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+    </div>
+    <div id="index_west" class="index_jContainer1_west">
+        <div id="treemain" onselectstart="return false" class="treeview tree_style1"></div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script src="index_AllHtmlFile/jquery-1.10.2.js"></script>
+<script>
+$( document).ready(function(e) {
+    $('.vjcard_item').click(function(){
+		var urlitem=['http://www.vjong.com/html/class1_48.html','http://www.vjong.com/html/class1_42.html','http://www.vjong.com/html/class1_53.html','http://www.vjong.com/html/class1_40.html',];
+		var item=$(this).attr('data-index');
+		window.open(urlitem[item],'vjwin_fromdemo');
+	})
+});
+</script>
+<style>
+body{ padding:0; margin:0; font-family:Microsoft YaHei, tahoma, arial, \5b8b\4f53}
+ul{padding:0}
+.vjcard_area {width:96%; height: 240px; font-size:14px; margin:auto}
+.vjcard_area .vjcard_item{ float: left;display: block; width: 24.8%; border: 1px solid #f0f0f0; border-right: none;position:relative;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ;
+    -ms-transition: all 0.2s ;
+    -o-transition: all 0.2s ;
+    transition: all 0.2s ease-out;
+	border-right:1px solid #aaa\9;
+	background-color:#ffffff;
+	border-top:none;
+	cursor:pointer;
+}
+.vjcard_area .vjcard_item h3{margin: 0px; padding: 10px 5px 5px 5px;}
+.vjcard_area .vjcard_item:last-of-type{ border-right: 1px solid #f0f0f0;}
+.vjcard_area .vjcard_item.active{width: 36%; border-color: #11B0F0;    box-shadow: 0 0 20px rgba(0, 198, 226, 0.5);}
+.vjcard_area .vjcard_item .vjcard_content{ height: 120px; padding: 130px 0px 0px 0px; display: block; width: 100% }
+.vjcard_area .vjcard_item .vjcard_content .main-info{  padding: 0px 10px 0px 10px; margin-bottom:5px;}
+.vjcard_area .vjcard_item .content-second,.vjcard_area .vjcard_item .content-first,.vjcard_area .vjcard_item .vjcard_title{
+    -webkit-transition: all 0.5s ease ;
+    -moz-transition: all 0.5s ease ;
+    -ms-transition: all 0.5s ease ;
+    -o-transition: all 0.5s ease ;
+    transition: all 0.5s ease ;}
+.vjcard_area .vjcard_item ul{padding:0px}
+.vjcard_area .vjcard_item li{ list-style:none; padding:0px 10px;}
+.vjcard_area .vjcard_item .content-second{opacity: 0; display:none; clear:both}
+.vjcard_area .vjcard_item .content-first{opacity: 1; display:block; }
+.vjcard_area .vjcard_item.active .content-first{opacity: 0; display:none}
+.vjcard_area .vjcard_item .content-first ul{ padding-top: 0px;background-color:#ffffff;}
+.vjcard_area .vjcard_item .content-first li{ line-height: 24px; text-align: left; color:#999}
+.vjcard_area .vjcard_item.active .content-second{ opacity: 1; display:block}
+.vjcard_area .vjcard_item .vjcard_content .main-head{ color: #111; font-size: 18px; font-weight: bold}
+.vjcard_area .vjcard_item .vjcard_title h3{ text-align:center; font-size:18px}
+
+.vjcard_area .vjcard_item .vjcard_title{ width: 100%;position: absolute;background-color: #e0e0e0;height: 120px;top:0px;}
+.vjcard_area .vjcard_item .vjcard_title p{margin: 0px; text-align: center;font-size: 12px; color:#666}
+.vjcard_area .vjcard_item:hover .content-first li{color:#666}
+
+.vjcard_area .vjcard_item .vjcard_title .ali-product-img img{ width: 50px; margin: auto;margin-top: 5px;display: block}
+.vjcard_area .vjcard_item .vjcard_title .ali-product-img img.with-hover{display: none}
+.vjcard_area .vjcard_item:hover .vjcard_title .ali-product-img img.un-hover{display: none}
+.vjcard_area .vjcard_item:hover .vjcard_title .ali-product-img img.with-hover{display: block}
+
+.vjcard_area .vjcard_item li.other-info-list a{ color: #333}
+.vjcard_area .vjcard_item li.other-info-list a.list-context{ padding: 2px 5px; border: 1px solid #ccc;color: #00a0c0}
+.vjcard_area .vjcard_item li.other-info-list a.list-context:hover{  border-color:#069;color: #fff; background-color: #00a0c0}
+.vjcard_area .vjcard_item .content-second li{ padding-top: 20px;}
+.vjcard_area .vjcard_item .content-second li h3{ text-align: left; font-size: 16px; padding: 0px; line-height: 150%}
+.vjcard_area .vjcard_item .content-second li p,.vjcard_area .vjcard_item .content-second li a{  font-size: 14px ; margin: 0px; line-height: 200%; clear: both;}
+.vjcard_area .infoimg{ margin:auto; position: relative; margin-top: 10px;display: block}
+ul.other-info{position: relative; padding: 0px ; margin:0px 10px;}
+ul.other-info li{ width: 50%; float:left;}
+ul.other-info li h3,ul.other-info li a{ }
+ul.other-info li:nth-child(2n+1){ }
+.header {margin:10px 20px;min-width:680px}
+.header h3{ color:#00ccee;  margin:10px 0px 10px 0px; font-size:24px}
+.header h3 label{ color:#999; font-size:14px; padding-right:70px}
+.header h4{ margin:10px 0px; padding-left:0px}
+.header .leftbox{ width:360px;}
+.header .rightbox{}
+.header .listbox li{ color:#696969; font-size:14px; line-height:24px}
+.header .listbox li label{ float:left;  display:block; width:140px; color:#999;}
+.header ul,.header li{padding:0; margin:0;list-style:none}
+.float-left{ float:left}
+.header .filelistbox{ clear:both; padding-top:1px;}
+.header .filelistbox ul{ background-color:#fafafa; padding:10px 20px; border:solid 1px #f0f0f0}
+.header .filelistbox li{ font-size:12px; color:#aaaaaa;  position:relative; line-height:24px; }
+.header .filelistbox li:nth-child(2n){ background-color:#f6f6f6}
+.filelistbox li label{ position:absolute; right:10px;}
+h3 .float-right{ color:#999; font-size:14px; line-height:25px;}
+.float-right{ float:right}
+.homeadvbox h3.title{ border:1px #ccc solid; background-color:#f6f6f6; padding:10px 20px; margin:0px; border-right:none; border-left:none}
+.homeadvbox{background-color:#fcfcfc; min-width:680px; position:absolute; bottom:0px;}
+
+ul.vjcard_area{ margin-top:10px}
+.vjcard_content .jump{ position:absolute; right:10px; bottom:2px; display:none}
+.vjcard_content .jump a{ color:#00ACFF; text-decoration:none;}
+.vjcard_area .vjcard_item:hover .vjcard_title h3{padding-top:2px;}
+.vjcard_area .vjcard_item:hover .vjcard_title{ background-color: #aaddff;  top:-10px; color: #026;}
+.vjcard_area .vjcard_item:hover .vjcard_content{ padding-top:115px; height:135px;}
+.vjcard_area .vjcard_item:hover .vjcard_content .jump{ display:block}
+</style>
+
+</head>
+
+<body>
+<div class="header">
+	<h3>pinggo内网资产发现系统</h3>
+	<div class="listbox float-left leftbox">
+        <ul>
+        <li><label>框架名称</label>Bootstrap</li>
+        <li><label>风格类型</label>默认</li>
+        </ul>
+    </div>
+    <div class="listbox float-left rightbox">
+        <ul>
+        <li><label>页面数量</label>1</li>
+        <li><label>生成时间</label>2020-09-03 14:44:25</li>
+        </ul>
+    </div>
+    <div class="filelistbox ">
+    	<h4>最新更新的文件</h4>
+        <ul>
+        <li><label>2020-09-03 06:33:18</label>index</li>
+        </ul>
+    </div>
+</div>
+<div class="homeadvbox col_container">
+    <h3 class="title"><div class="float-right">微简原型工具（vjpage），全球第一款代码可用的原型工具</div>微简服务</h3>
+    <ul class="vjcard_area">
+        <li class="vjcard_item" data-index="0">
+            <div class="card">
+                <div class="vjcard_title  title-even  ">
+                    <div class="content">
+                        <div class="ali-product-img">
+                            <img src="index_AllHtmlFile/icon001e.png" alt="" class="un-hover">
+                            <img src="index_AllHtmlFile/icon001.png" alt="" class="with-hover">
+                        </div>
+                        <h3>快速出界面原型</h3>
+                            <p class="short-info">快速、准确的确定需求</p>
+                    </div>
+                </div>
+                <div class="vjcard_content content-first">
+                	<span class="jump"><a href="http://www.vjong.com/">了解详情</a></span>
+                    <ul class="content-first-list">
+                      <li>我们有大量业务界面的积累，有需求大纲即可设计详细的界面原型，看到界面用户会主动、快速、准确的确定需求</li>
+                    </ul>
+                </div>
+                <div class="vjcard_content content-second">
+                    <div class="main-info">
+                        <a href="javascript:void(0)" class="no-effect">
+                            <p class="main-head">
+                                WEB端JS、H5丰富交互
+                            </p>
+                        </a>
+                        <p class="main-desc">
+                            在您的系统中展现出各种流行时尚的交互效果 <br>搭配<font color="#FF8A00">JS\H5\FLASH</font>动画
+                            <a href="javascript:void(0)" target="_self" data-url='/html/class1_46.html'>
+                            <button class="main-btn" >了解更多</button> </a>
+                        </p>                       
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="vjcard_item" data-index="1">
+            <div class="card">
+                <div class="vjcard_title  title-odd  ">
+                    <div class="content">
+                        <div class="ali-product-img">
+                            <img src="index_AllHtmlFile/icon002e.png" alt="" class="un-hover">
+                            <img src="index_AllHtmlFile/icon002.png" alt="" class="with-hover">
+                        </div>
+                        <h3>前端代码优化</h1>
+                            <p class="short-info">给用户专业、美观的极致体验</p>
+                    </div>
+                </div>
+                <div class="vjcard_content content-first"><span class="jump"><a href="http://www.vjong.com/">了解详情</a></span>
+                    <ul class="content-first-list">
+                        <li>用专业的技术人员对vjpage生成的代码进行优化、美化、细化，同时解决您缺少前端开发人员、美工的问题</li>
+                    </ul>
+                </div>
+                <div class="vjcard_content content-second">
+                    <div class="main-info">
+                        <a href="" class="no-effect" >
+                            <p class="main-head">体验不仅指好看</p>
+                        </a>
+                        <p class="main-desc">明确产品核心目标，不绝对盲从用户期望，科学衡量交互设计的得失
+                            <a href="javascript:void(0)"   data-url='/html/class1_55.html'>
+                            <button class="main-btn" >进入了解</button>
+                        </a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="vjcard_item" data-index="2">
+            <div class="card">
+                <div class="vjcard_title  title-even">
+                    <div class="content">
+                        <div class="ali-product-img">
+                            <img src="index_AllHtmlFile/icon003e.png" alt="" class="un-hover">
+                            <img src="index_AllHtmlFile/icon003.png" alt="" class="with-hover">
+                        </div>
+                        <h3>项目外包</h1>
+                            <p class="short-info">全新外包模式、轻松把控全程</p>
+                    </div>
+                </div>
+                <div class="vjcard_content content-first"><span class="jump"><a href="http://www.vjong.com/">了解详情</a></span>
+                    <ul class="content-first-list">
+                        <li>强大的技术团队支持，整体项目能力突出；微简法方法论支撑，全程界面体验，高质量低风险</li>
+                    </ul>
+                </div>
+                <div class="vjcard_content content-second">
+                    <div class="main-info">
+                        <a href="javascript:void(0)" class="no-effect">
+                            <p class="main-head">
+                                快速确认用户需求
+                            </p>
+                        </a>
+                        <p class="main-desc">
+                            原型即界面，生成代码直接用于开发避免二次设计、用户二次确认<a href="javascript:void(0)" data-url='cmd_baidu'>
+                            <button class="main-btn" >立即咨询</button>
+                        </a>
+                        </p>
+                    </div>                
+                </div>
+            </div>
+        </li>
+        <li class="vjcard_item" data-index="3">
+            <div class="card">
+                <div class="vjcard_title title-odd">
+                    <div class="content">
+                        <div class="ali-product-img">
+                            <img src="index_AllHtmlFile/icon004e.png" alt="" class="un-hover">
+                            <img src="index_AllHtmlFile/icon004.png" alt="" class="with-hover">
+                        </div>
+                        <h3>敏捷咨询</h3>
+                            <p class="short-info">缩短开发周期、降低人力成本</p>
+                    </div>
+                </div>
+                <div class="vjcard_content content-first"><span class="jump"><a href="http://www.vjong.com/">了解详情</a></span>
+                    <ul class="content-first-list">
+                        <li>微简开发方法是最先进的敏捷开发方案，可在传统敏捷基础上再提高30%开发效率</li>
+                    </ul>
+                </div>
+                <div class="vjcard_content content-second">
+                    <div class="main-info">
+                        <a href="javascript:void(0)" class="no-effect">
+                            <p class="main-head">
+                                需求及前端开发效率变革
+                            </p>
+                        </a>
+                        <p class="main-desc">
+                            需求阶段至初期前端界面确认从<font color="#FF8A00">6</font>个步骤简化为<font color="#FF8A00">1</font>个步骤
+                            <a href="javascript:void(0)" >
+                            <button class="main-btn" data-url='html/class1_33.html'>进入了解</button>
+                        </a>
+                        </p>
+                    </div>                    
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
