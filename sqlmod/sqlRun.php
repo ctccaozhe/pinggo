@@ -1,6 +1,7 @@
 <?php
 include "sqlLoading.php";
 include "service/pingAddress.php";
+include "mod/dingDing.php";
 
 class sqlRun
 {
@@ -211,7 +212,7 @@ class sqlRun
             if ($testing){
                 echo "正常";
                 echo "---".$row->ip."---";
-                $this->ipLive($row->ip,"1");
+                $this->ipLive($row->ip,"1",$row->owner,$row->bz);
             }else{
                 echo "异常";
                 echo "---".$row->ip."---";
@@ -223,8 +224,9 @@ class sqlRun
     }
 
     #写入存活状态
-    function ipLive($ip,$filg){
+    function ipLive($ip,$filg,$owner,$bz){
         #实例化sql参数
+        $ding = new dingDing();
         $sqlLoading = new sqlLoading();
         #建立连接
         $conn = mysqli_connect($sqlLoading->getServername(), $sqlLoading->getUsername(), $sqlLoading->getPassword(), $sqlLoading->getDatabase());
@@ -239,6 +241,7 @@ class sqlRun
             echo $filg . "以前死亡,现在存活" . $oldFlaGc;
             $sql = "UPDATE `ipld`.`host` SET `survival` = '$filg',`detection` = '$time',`survivaltime` = '$time' WHERE `host`.`ip` = '$ip';";
             mysqli_query($conn, $sql);
+            $ding->run("主人发现ip上线：$ip,所属者：$owner,备注：$bz.");
         }
         if ($filg == 1 && $oldFlaGc == 1) {
             echo $filg . "以前存活,现在存活" . $oldFlaGc;
@@ -249,6 +252,7 @@ class sqlRun
             echo $filg . "未获取到从前状态,现在存活" . $oldFlaGc;
             $sql = "UPDATE `ipld`.`host` SET `survival` = '$filg',`detection` = '$time',`survivaltime` = '$time' WHERE `host`.`ip` = '$ip';";
             mysqli_query($conn, $sql);
+            $ding->run("主人发现可疑ip上线：$ip,所属者：$owner,备注：$bz.");
         }
         if ($filg == 0 && $oldFlaGc == 0) {
             echo $filg . "以前死亡,现在死亡" . $oldFlaGc;
@@ -259,11 +263,13 @@ class sqlRun
             echo $filg . "以前存活,现在死亡" . $oldFlaGc;
             $sql = "UPDATE `ipld`.`host` SET `survival` = '$filg',`detection` = '$time',`dietime` = '$time' WHERE `host`.`ip` = '$ip';";
             mysqli_query($conn, $sql);
+            $ding->run("主人发现ip下线：$ip,所属者：$owner,备注：$bz.");
         }
         if ($filg == 0 && $oldFlaGc == null) {
             echo $filg . "未获取到从前状态,现在死亡" . $oldFlaGc;
             $sql = "UPDATE `ipld`.`host` SET `survival` = '$filg',`detection` = '$time',`dietime` = '$time' WHERE `host`.`ip` = '$ip';";
             mysqli_query($conn, $sql);
+            $ding->run("主人发现可疑ip下线：$ip,所属者：$owner,备注：$bz.");
         }
     }
 }
